@@ -1,21 +1,13 @@
 import { Router } from "express";
 import {StatusCodes} from "http-status-codes"
+import { CidadesController } from "../controllers";
 
 const router = Router()
 
 
-router.get("/",(req,res) => {
+router.get("/",)
 
-    return res.send("Botafogo de futebol e Regatas" )
-    
-})
-
-router.post("/create",(req,res) => {
-
-    console.log(req.body)
-    return res.json(req.body )
-    
-})
+router.post("/cidades",CidadesController.create)
 
 
 export {router}
