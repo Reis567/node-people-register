@@ -11,13 +11,14 @@ interface ICidade extends yup.InferType<typeof bodyValidation> {
   }
 
 export const create = async (req:Request<{},{},ICidade>, res:Response)=>{
+    let validatedData : ICidade | undefined = undefined;
 
     try {
-        await bodyValidation.validate(req.body)
+        validatedData = await bodyValidation.validate(req.body)
     } catch (error) {
         console.log(error)
     }
 
-    console.log(req.body.nome)
+    console.log(validatedData)
     return res.send(req.body)
 };
