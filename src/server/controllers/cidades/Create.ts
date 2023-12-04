@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
 
@@ -10,11 +10,11 @@ interface ICidade extends yup.InferType<typeof bodyValidation> {
     nome:string,
   }
 
-export const create = async (req:Request<{},{},ICidade>, res:Response)=>{
-    let validatedData : ICidade | undefined = undefined;
-
+export const createBodyValidator:RequestHandler = async(req,res,next)=>{
+    
     try {
-        validatedData = await bodyValidation.validate(req.body,{abortEarly:false})
+        await bodyValidation.validate(req.body,{abortEarly:false});
+        return next()
     } catch (err) {
         const yupError = err as yup.ValidationError;
         const errors : Record<string,string> = {};
@@ -28,6 +28,12 @@ export const create = async (req:Request<{},{},ICidade>, res:Response)=>{
             errors:errors
         })
     }
+
+
+}
+
+export const create:RequestHandler  = async (req:Request<{},{},ICidade>, res:Response)=>{
+    let validatedData : ICidade | undefined = undefined;
 
     return res.send(req.body)
 };

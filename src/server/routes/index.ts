@@ -7,7 +7,7 @@ const router = Router()
 
 router.get("/",)
 
-router.post("/cidades",CidadesController.create)
+router.post("/cidades",CidadesController.createBodyValidator,CidadesController.create)
 
 
 export {router}
