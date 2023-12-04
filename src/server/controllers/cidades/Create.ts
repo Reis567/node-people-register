@@ -16,9 +16,13 @@ export const create = async (req:Request<{},{},ICidade>, res:Response)=>{
     try {
         validatedData = await bodyValidation.validate(req.body)
     } catch (error) {
-        console.log(error)
+        const yupError = error as yup.ValidationError
+        return res.json({
+            errors:{
+                default:yupError.message
+            }
+        })
     }
 
-    console.log(validatedData)
     return res.send(req.body)
 };
