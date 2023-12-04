@@ -7,20 +7,25 @@ const bodyValidation = yup.object({
   });
   
 interface ICidade extends yup.InferType<typeof bodyValidation> {
-    nome:string
+    nome:string,
   }
 
 export const create = async (req:Request<{},{},ICidade>, res:Response)=>{
     let validatedData : ICidade | undefined = undefined;
 
     try {
-        validatedData = await bodyValidation.validate(req.body)
-    } catch (error) {
-        const yupError = error as yup.ValidationError
-        return res.json({
-            errors:{
-                default:yupError.message
-            }
+        validatedData = await bodyValidation.validate(req.body,{abortEarly:false})
+    } catch (err) {
+        const yupError = err as yup.ValidationError;
+        const errors : Record<string,string> = {};
+
+        yupError.inner.forEach(error=>{
+            if(error.path === undefined) return;
+            errors[error.path] = error.message
+        })
+
+        return res.status(StatusCodes.BAD_REQUEST).json({
+            errors:errors
         })
     }
 
