@@ -14,11 +14,11 @@ interface ICidade extends yup.InferType<typeof bodyValidation> {
   
 
 const queryValidation = yup.object({
-      filter: yup.string().required().min(3),
+      filter: yup.string().optional().min(3),
     });
     
 interface IFilter extends yup.InferType<typeof queryValidation> {
-        filter:string,
+        filter?:string,
       }
 
 
