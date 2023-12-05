@@ -14,18 +14,18 @@ interface ICidade extends yup.InferType<typeof bodyValidation> {
   
 
 const queryValidation = yup.object({
-    filter: yup.string().min(3),
-  });
-  
+      filter: yup.string().required().min(3),
+    });
+    
 interface IFilter extends yup.InferType<typeof queryValidation> {
-    filter:string,
-  }
+        filter:string,
+      }
 
 
-export const createValidation = validation({
-    body:bodyValidation,
-    query:queryValidation
-});
+export const createValidation = validation((getSchema)=>({
+    body:getSchema<ICidade>(bodyValidation),
+    query:getSchema<IFilter>(queryValidation)
+}));
 
 
 export const create:RequestHandler  = async (req:Request<{},{},ICidade>, res:Response)=>{
