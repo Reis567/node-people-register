@@ -1,6 +1,8 @@
+
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
+import { validation } from "../../shared/middlewares";
 
 const bodyValidation = yup.object({
     nome: yup.string().required().min(3),
@@ -9,31 +11,25 @@ const bodyValidation = yup.object({
 interface ICidade extends yup.InferType<typeof bodyValidation> {
     nome:string,
   }
+  
 
-export const createBodyValidator:RequestHandler = async(req,res,next)=>{
-    
-    try {
-        await bodyValidation.validate(req.body,{abortEarly:false});
-        return next()
-    } catch (err) {
-        const yupError = err as yup.ValidationError;
-        const errors : Record<string,string> = {};
-
-        yupError.inner.forEach(error=>{
-            if(error.path === undefined) return;
-            errors[error.path] = error.message
-        })
-
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            errors:errors
-        })
-    }
+const queryValidation = yup.object({
+    filter: yup.string().min(3),
+  });
+  
+interface IFilter extends yup.InferType<typeof queryValidation> {
+    filter:string,
+  }
 
 
-}
+export const createValidation = validation({
+    body:bodyValidation,
+    query:queryValidation
+});
+
 
 export const create:RequestHandler  = async (req:Request<{},{},ICidade>, res:Response)=>{
-    let validatedData : ICidade | undefined = undefined;
+    console.log(req.body)
 
     return res.send(req.body)
 };
