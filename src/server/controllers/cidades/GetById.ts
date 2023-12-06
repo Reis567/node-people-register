@@ -19,8 +19,9 @@ export const getByIdValidation = validation((getSchema)=>({
 }));
 
 
-export const getById = async (req:Request<IParamsProps>, res:Response)=>{
-    console.log(req.params)
 
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado')
+export const getById: RequestHandler<{ id: string }> = async (req, res) => {
+  console.log(req.params);
+
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado');
 };

@@ -13,4 +13,4 @@ router.get("/cidades/:id",CidadesController.getByIdValidation,CidadesController.
 router.post("/cidades",CidadesController.createValidation,CidadesController.create)
 
 
-export {router}
+export {router};
