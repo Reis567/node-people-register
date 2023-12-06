@@ -14,7 +14,7 @@ interface IParamsProps extends yup.InferType<typeof paramsValidation> {
   
 
 
-export const getAllValidation = validation((getSchema)=>({
+export const getByIdValidation = validation((getSchema)=>({
     params:getSchema<IParamsProps>(paramsValidation),
 }));
 
@@ -22,5 +22,5 @@ export const getAllValidation = validation((getSchema)=>({
 export const getById = async (req:Request<IParamsProps>, res:Response)=>{
     console.log(req.params)
 
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado')
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado')
 };
