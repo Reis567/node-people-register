@@ -13,23 +13,14 @@ interface ICidade extends yup.InferType<typeof bodyValidation> {
   }
   
 
-const queryValidation = yup.object({
-      filter: yup.string().optional().min(3),
-    });
-    
-interface IFilter extends yup.InferType<typeof queryValidation> {
-        filter?:string,
-      }
-
 
 export const createValidation = validation((getSchema)=>({
     body:getSchema<ICidade>(bodyValidation),
-    query:getSchema<IFilter>(queryValidation)
 }));
 
 
 export const create:RequestHandler  = async (req:Request<{},{},ICidade>, res:Response)=>{
     console.log(req.body)
 
-    return res.send(req.body)
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado')
 };
