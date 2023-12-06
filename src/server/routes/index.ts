@@ -19,5 +19,9 @@ router.post("/cidades",CidadesController.createValidation,CidadesController.crea
 //Update routes
 router.put("/cidades/:id",CidadesController.UpdateByIdValidation,CidadesController.UpdateById)
 
+//Delete routes
+router.delete("/cidades/:id",CidadesController.DeleteByIdValidation,CidadesController.DeleteById)
+
+
 
 export {router};
