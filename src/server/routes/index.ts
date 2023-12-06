@@ -12,5 +12,7 @@ router.get("/cidades/:id",CidadesController.getByIdValidation,CidadesController.
 
 router.post("/cidades",CidadesController.createValidation,CidadesController.create)
 
+router.put("/cidades/:id",CidadesController.UpdateByIdValidation,CidadesController.UpdateById)
+
 
 export {router};
