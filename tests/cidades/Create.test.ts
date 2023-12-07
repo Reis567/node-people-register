@@ -17,7 +17,7 @@ describe('Cidades - Create', ()=>{
             nome:'Ma',
         
         })
-        expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(resposta1.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(resposta1.body).toHaveProperty('errors.body.nome');
     });
 });
