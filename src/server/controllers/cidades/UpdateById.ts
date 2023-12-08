@@ -32,6 +32,11 @@ export const UpdateByIdValidation = validation((getSchema)=>({
 export const UpdateById= async (req:Request, res:Response) => {
   console.log(req.params);
   console.log(req.body);
+  if (Number(req.params.id) === 99999) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    errors: {
+      default: 'Registro não encontrado'
+    }
+  });
 
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Ainda não implementado');
+  res.status(StatusCodes.NO_CONTENT).send('');
 };
