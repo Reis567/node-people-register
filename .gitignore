@@ -4,4 +4,4 @@
 /build
 /dist
 /coverage
-.sqlite
+*.sqlite
