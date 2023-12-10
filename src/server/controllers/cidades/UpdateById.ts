@@ -3,6 +3,7 @@ import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
 import { validation } from "../../shared/middlewares";
+import { ICidade } from "../../database/models";
 
 const paramsValidation = yup.object({
     id: yup.number().integer().required().moreThan(0),
@@ -16,9 +17,7 @@ interface IParamsProps extends yup.InferType<typeof paramsValidation> {
     id:number;
   }
   
-interface IBodyProps extends yup.InferType<typeof bodyValidation> {
-    nome:string;
-  }
+interface IBodyProps extends Omit<ICidade,'id'>{ }
   
 
 
