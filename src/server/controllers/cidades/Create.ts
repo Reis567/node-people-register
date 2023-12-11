@@ -8,7 +8,7 @@ import { CidadesProvider } from "../../database/providers/cidades";
 
 
 const bodyValidation = yup.object({
-    nome: yup.string().required().min(3),
+    nome: yup.string().required().min(3).max(150),
   });
 
 interface IBodyProps extends Omit<ICidade,'id'>{ }
