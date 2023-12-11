@@ -23,7 +23,7 @@ export const createValidation = validation((getSchema)=>({
 export const create:RequestHandler  = async (req:Request<{},{},IBodyProps>, res:Response)=>{
     console.log(req.body)
     const result = await CidadesProvider.create(req.body);
-    
+
     if (result instanceof Error){
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors:{
@@ -32,5 +32,5 @@ export const create:RequestHandler  = async (req:Request<{},{},IBodyProps>, res:
         })
     }
 
-    return res.status(StatusCodes.CREATED).json(1);
+    return res.status(StatusCodes.CREATED).json(result);
 };
