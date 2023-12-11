@@ -4,7 +4,7 @@ import * as create from "./Create"
 //import * as UpdateById from './UpdateById'
 //import * as DeleteById from './DeleteById'
 
-export const CidadesController = {
+export const CidadesProvider = {
     ...create,
 //    ...getAll,
 //    ...getById,
