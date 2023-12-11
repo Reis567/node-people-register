@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
 import { validation } from "../../shared/middlewares";
 import { ICidade } from "../../database/models";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 
 const bodyValidation = yup.object({
@@ -21,6 +22,15 @@ export const createValidation = validation((getSchema)=>({
 
 export const create:RequestHandler  = async (req:Request<{},{},IBodyProps>, res:Response)=>{
     console.log(req.body)
+    const result = await CidadesProvider.create(req.body);
+    
+    if (result instanceof Error){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors:{
+                default:result.message
+            }
+        })
+    }
 
     return res.status(StatusCodes.CREATED).json(1);
 };
