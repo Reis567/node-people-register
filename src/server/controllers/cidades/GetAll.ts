@@ -3,6 +3,7 @@ import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
 import { validation } from "../../shared/middlewares";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 const bodyValidation = yup.object({
     id: yup.number().optional().integer().moreThan(0),
@@ -26,14 +27,11 @@ export const getAllValidation = validation((getSchema)=>({
 
 
 export const getAll:RequestHandler  = async (req:Request<{},{},{},IQueryProps>, res:Response)=>{
-    console.log(req.query)
-    res.setHeader('access-control-expose-headers','x-total-count');
-    res.setHeader('x-total-count',1)
+    const result = await CidadesProvider.getAll(req.query.page||1,req.query.limit||7 , req.query.filter|| '', Number(req.query.id));
+
+
 
     return res.status(StatusCodes.OK).json([
-      {
-        id:1,
-        nome:'Maricá'
-      }
+      result 
     ])
 };
