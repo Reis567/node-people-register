@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from 'yup'
 import { validation } from "../../shared/middlewares";
 import { ICidade } from "../../database/models";
+import { CidadesProvider } from "../../database/providers/cidades";
 
 const paramsValidation = yup.object({
     id: yup.number().integer().required().moreThan(0),
@@ -29,13 +30,36 @@ export const UpdateByIdValidation = validation((getSchema)=>({
 
 
 export const UpdateById= async (req:Request, res:Response) => {
-  console.log(req.params);
   console.log(req.body);
-  if (Number(req.params.id) === 99999) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-    errors: {
-      default: 'Registro não encontrado'
-    }
-  });
+  console.log(req.params);
+  if (!req.params.id){
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors:{
+        default:'O parâmetro "id" precisa ser informado ! '
+      }
+    });
+    
+  }
 
-  res.status(StatusCodes.NO_CONTENT).send('');
+  const idNumber:number = parseInt(req.params.id)
+
+  if (isNaN(idNumber)) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors: {
+        default: 'O parâmetro "id" deve ser um número válido!',
+      },
+    });
+  }
+
+  const result = await CidadesProvider.updateById(idNumber, req.body);
+
+  if(result instanceof Error){
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors:{
+        default:result.message
+      }
+    })
+  }
+
+  res.status(StatusCodes.NO_CONTENT).json(result);
 };
