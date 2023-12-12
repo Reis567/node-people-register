@@ -9,7 +9,7 @@ export const deleteById = async (id: number): Promise<void | Error> => {
         if(result>0) return;
         
         if (result === 0) {
-            throw new Error('Registro não encontrado');
+            return new Error('Registro não encontrado');
         }
 
         console.log(`Registro com ID ${id} excluído com sucesso.`);
