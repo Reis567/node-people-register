@@ -41,6 +41,9 @@ export const getAll:RequestHandler  = async (req:Request<{},{},{},IQueryProps>, 
       });
     }
 
+    res.setHeader('access-control-expose-headers', 'x-total-count');
+    res.setHeader('x-total-count', count);
+
 
     return res.status(StatusCodes.OK).json([
       result 
