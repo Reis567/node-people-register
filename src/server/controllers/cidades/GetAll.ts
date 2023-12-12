@@ -31,6 +31,16 @@ export const getAll:RequestHandler  = async (req:Request<{},{},{},IQueryProps>, 
     const count = await CidadesProvider.count(req.query.filter)
 
 
+    if (result instanceof Error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: { default: result.message }
+      });
+    } else if (count instanceof Error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: { default: count.message }
+      });
+    }
+
 
     return res.status(StatusCodes.OK).json([
       result 
