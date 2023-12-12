@@ -5,12 +5,14 @@ import * as yup from 'yup'
 import { validation } from "../../shared/middlewares";
 
 const bodyValidation = yup.object({
+    id: yup.number().optional().integer().moreThan(0),
     page: yup.number().optional().moreThan(0),
     limit: yup.number().optional().moreThan(0),
     filter: yup.string().optional(),
   });
   
 interface IQueryProps extends yup.InferType<typeof bodyValidation> {
+    id?:number;
     page?:number;
     limit?:number;
     filter?:string;
