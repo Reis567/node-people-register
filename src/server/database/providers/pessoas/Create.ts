@@ -13,10 +13,12 @@ export const create = async (pessoa: Omit<IPessoa, 'id'>): Promise<number | Erro
         }
         const [result] = await Knex(ETableNames.pessoa).insert(pessoa).returning('id');
 
-        if (typeof result === 'object' && 'id' in result) {
-            return result.id as number;
-        } else {
-            return new Error('Erro ao cadastrar registro de pessoa!');
+        if(typeof result === 'object'){
+            return result.id
+        } else if(typeof result === 'number'){
+            return result
+        } else{
+            return new Error('Erro ao cadastrar registro ! ')
         }
     } catch (error) {
         console.error(error);
