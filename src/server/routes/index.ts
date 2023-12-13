@@ -24,5 +24,7 @@ router.delete("/cidades/:id",CidadesController.DeleteByIdValidation,CidadesContr
 //Read routes
 router.get("/pessoas",PessoasController.getAllValidation,PessoasController.getAll);
 router.get("/pessoas/:id",PessoasController.getByIdValidation,PessoasController.getById);
+//Create routes
+router.post("/pessoas",PessoasController.createValidation,PessoasController.create)
 
 export {router};
