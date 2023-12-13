@@ -12,7 +12,7 @@ const paramsValidation = yup.object({
 const bodyValidation = yup.object({
     nomeCompleto: yup.string().required().min(3),
     email: yup.string().required().email(),
-    cidadeId: yup.number().integer().required(),
+    cidadeId: yup.number().integer().required().moreThan(0),
 });
 
 interface IParamsProps extends yup.InferType<typeof paramsValidation> {
