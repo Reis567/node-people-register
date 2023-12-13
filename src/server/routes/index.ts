@@ -26,5 +26,7 @@ router.get("/pessoas",PessoasController.getAllValidation,PessoasController.getAl
 router.get("/pessoas/:id",PessoasController.getByIdValidation,PessoasController.getById);
 //Create routes
 router.post("/pessoas",PessoasController.createValidation,PessoasController.create)
+//Update routes
+router.put("/pessoas/:id",PessoasController.updateByIdValidation,PessoasController.updateById)
 
 export {router};
