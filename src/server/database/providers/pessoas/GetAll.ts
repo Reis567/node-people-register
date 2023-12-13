@@ -2,7 +2,7 @@ import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 import { IPessoa } from "../../models";
 
-export const getAllPessoas = async (page: number, limit: number, filter: string, id = 0): Promise<IPessoa[] | Error> => {
+export const getAll = async (page: number, limit: number, filter: string, id = 0): Promise<IPessoa[] | Error> => {
     try {
         let query = Knex(ETableNames.pessoa)
             .select('*')
