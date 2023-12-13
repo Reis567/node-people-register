@@ -8,7 +8,7 @@ import { PessoasProvider } from "../../database/providers/pessoas";
 const bodyValidation = yup.object({
     nomeCompleto: yup.string().required().min(3),
     email: yup.string().required().email(),
-    cidadeId: yup.number().integer().required(),
+    cidadeId: yup.number().integer().required().min(1),
 });
 
 interface IBodyProps extends Omit<IPessoa, 'id'> { }
