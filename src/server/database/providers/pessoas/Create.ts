@@ -2,7 +2,7 @@ import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
 import { IPessoa } from "../../models";
 
-export const createPessoa = async (pessoa: Omit<IPessoa, 'id'>): Promise<number | Error> => {
+export const create = async (pessoa: Omit<IPessoa, 'id'>): Promise<number | Error> => {
     try {
         const [result] = await Knex(ETableNames.pessoa).insert(pessoa).returning('id');
 
