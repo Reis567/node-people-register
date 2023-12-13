@@ -28,5 +28,7 @@ router.get("/pessoas/:id",PessoasController.getByIdValidation,PessoasController.
 router.post("/pessoas",PessoasController.createValidation,PessoasController.create)
 //Update routes
 router.put("/pessoas/:id",PessoasController.updateByIdValidation,PessoasController.updateById)
+//Delete routes
+router.delete("/pessoas/:id",PessoasController.deleteByIdValidation,PessoasController.deleteById)
 
 export {router};
