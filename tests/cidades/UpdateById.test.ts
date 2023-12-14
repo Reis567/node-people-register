@@ -1,6 +1,6 @@
 import { testServer } from './../jest.setup';
 import { StatusCodes } from 'http-status-codes';
-describe('Cidades - GetById',()=>{
+describe('Cidades - UpdateById',()=>{
     it('Edita registro existente', async () => {
         const resCria = await testServer.post('/cidades').send({
             nome: 'Maricá',
