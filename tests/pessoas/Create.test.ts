@@ -48,5 +48,15 @@ describe('Pessoas - Create', () => {
         expect(respostaemail2.body).toHaveProperty('errors.default')
     });
 
+    it('Tenta criar registro com Cidade Id incorreto', async () => {
+        const resposta2 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'Joelinton',
+            email: 'joelintoncreate@example.com',
+            cidadeId: 9999,
+        });
+
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.default');
+    });
 
 });
