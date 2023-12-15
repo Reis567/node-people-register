@@ -66,7 +66,17 @@ describe('Pessoas - Create', () => {
         });
 
         expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-        expect(resposta2.body).toHaveProperty('errors.default');
+        expect(resposta2.body).toHaveProperty('errors.body.nomeCompleto');
+    });
+
+    it('Tenta criar registro sem nome', async () => {
+        const resposta5 = await testServer.post('/pessoas').send({
+            email: 'noName@example.com',
+            cidadeId,
+        });
+
+        expect(resposta5.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta5.body).toHaveProperty('errors.body.nomeCompleto');
     });
 
 
