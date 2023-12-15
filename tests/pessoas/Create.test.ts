@@ -89,4 +89,14 @@ describe('Pessoas - Create', () => {
         expect(resposta6.body).toHaveProperty('errors.body.email');
     });
 
+    it('Tenta criar registro com email no formato inválido', async () => {
+        const resposta7 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'EmailInvalido',
+            email: 'invalidEmail',
+            cidadeId,
+        });
+
+        expect(resposta7.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta7.body).toHaveProperty('errors.body.email');
+    });
 });
