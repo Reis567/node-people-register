@@ -1,7 +1,7 @@
 import * as create from "./Create"
-import * as getById from './GetByEmail'
+import * as getByEmail from './GetByEmail'
 
 export const UsuariosProvider = {
     ...create,
-    ...getById,
+    ...getByEmail,
 }
