@@ -2,11 +2,16 @@ import { StatusCodes } from 'http-status-codes';
 import { testServer } from "../jest.setup";
 
 describe('Pessoas - Create', () => {
+    let cidadeId :number|undefined = undefined
+    beforeAll(async()=>{
+        const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+        cidadeId= resCidade.body
+    })
     it('Cria registro', async () => {
         const resposta1 = await testServer.post('/pessoas').send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
-            cidadeId: 1, 
+            cidadeId, 
         });
 
         expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
