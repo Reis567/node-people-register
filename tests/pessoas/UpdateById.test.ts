@@ -1,11 +1,16 @@
 import { testServer } from './../jest.setup';
 import { StatusCodes } from 'http-status-codes';
 describe('Pessoas - UpdateById',()=>{
+  let cidadeId :number|undefined = undefined
+  beforeAll(async()=>{
+      const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+      cidadeId= resCidade.body
+  })
     it('Edita registro existente', async () => {
         const resCria = await testServer.post('/pessoas').send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
-            cidadeId: 1, 
+            cidadeId, 
           });
           
           expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
@@ -25,7 +30,7 @@ describe('Pessoas - UpdateById',()=>{
         const response = await testServer.put(`/pessoas/99999`).send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
-            cidadeId: 1, 
+            cidadeId, 
         });
     
         expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
