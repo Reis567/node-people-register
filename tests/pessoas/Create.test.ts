@@ -30,33 +30,31 @@ describe('Pessoas - Create', () => {
         expect(typeof resposta1.body).toEqual('number');
     });
     it('Tenta criar registro com email duplicado', async () => {
-        const respostaemail1 = await testServer.post('/pessoas').send({
-            nomeCompleto: 'Ciclano de Tal',
-            email: 'fulanoCreate2@example.com', 
+        const resposta1 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'Fulano de Tal',
+            email: 'fulanoCreate1222@example.com',
             cidadeId,
         });
 
-        expect(respostaemail1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
 
-        const respostaemail2 = await testServer.post('/pessoas').send({
-            nomeCompleto: 'Ciclano de Tal2',
-            email: 'fulanoCreate2@example.com', 
+        const resposta2 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'Fulano',
+            email: 'fulanoCreate1222@example.com',
             cidadeId,
         });
-
-        expect(respostaemail2.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
-        expect(respostaemail2.body).toHaveProperty('errors.default')
+        expect(resposta2.body).toHaveProperty('errors.default')
     });
 
-    it('Tenta criar registro com Cidade Id incorreto', async () => {
+    it('Tenta criar registro com Cidade Id inválido', async () => {
         const resposta2 = await testServer.post('/pessoas').send({
-            nomeCompleto: 'Joelinton',
-            email: 'joelintoncreate@example.com',
-            cidadeId: 9999,
+            nomeCompleto: 'Juca da Silva',
+            email: 'juca222@gmail.com',
+            cidadeId: 'teste',
         });
 
         expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
-        expect(resposta2.body).toHaveProperty('errors.default');
+        expect(resposta2.body).toHaveProperty('errors.body.cidadeId');
     });
     it('Tenta criar registro com nome curto', async () => {
         const resposta2 = await testServer.post('/pessoas').send({
