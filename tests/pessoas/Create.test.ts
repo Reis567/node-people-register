@@ -58,5 +58,16 @@ describe('Pessoas - Create', () => {
         expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(resposta2.body).toHaveProperty('errors.default');
     });
+    it('Tenta criar registro com nome curto', async () => {
+        const resposta2 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'Jo',
+            email: 'joelintoncreate2@example.com',
+            cidadeId,
+        });
+
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.default');
+    });
+
 
 });
