@@ -79,5 +79,14 @@ describe('Pessoas - Create', () => {
         expect(resposta5.body).toHaveProperty('errors.body.nomeCompleto');
     });
 
+    it('Tenta criar registro sem email', async () => {
+        const resposta6 = await testServer.post('/pessoas').send({
+            nomeCompleto: 'SemEmail',
+            cidadeId,
+        });
+
+        expect(resposta6.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta6.body).toHaveProperty('errors.body.email');
+    });
 
 });
