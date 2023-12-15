@@ -7,12 +7,12 @@ describe('Pessoas - DeleteById', () => {
       const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
       cidadeId= resCidade.body
   })
-  
+
   it('Exclui registro existente', async () => {
 
     const resCria = await testServer.post('/pessoas').send({
         nomeCompleto: 'Fulano de Tal',
-        email: 'fulano@example.com',
+        email: 'fulanodelete@example.com',
         cidadeId, 
       });
       

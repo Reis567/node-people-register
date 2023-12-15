@@ -8,13 +8,13 @@ describe('Pessoas - GetBy Id', ()=>{
         const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
         cidadeId= resCidade.body
     })
-    
+
     it('Busca registro existente',async ()=>{
 
 
         const resCria = await testServer.post('/pessoas').send({
             nomeCompleto: 'Fulano de Tal',
-            email: 'fulano@example.com',
+            email: 'fulanogetbyid@example.com',
             cidadeId
           });
           
