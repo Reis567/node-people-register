@@ -3,11 +3,19 @@ import { StatusCodes } from 'http-status-codes';
 
 
 describe('Pessoas - GetBy Id', ()=>{
+    let cidadeId :number|undefined = undefined
+    beforeAll(async()=>{
+        const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+        cidadeId= resCidade.body
+    })
+    
     it('Busca registro existente',async ()=>{
+
+
         const resCria = await testServer.post('/pessoas').send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
-            cidadeId: 1, 
+            cidadeId
           });
           
           expect(resCria.statusCode).toEqual(StatusCodes.CREATED);

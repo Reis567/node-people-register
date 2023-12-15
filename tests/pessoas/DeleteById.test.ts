@@ -2,13 +2,14 @@ import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
 
 describe('Pessoas - DeleteById', () => {
+  let cidadeId :number|undefined = undefined
+  beforeAll(async()=>{
+      const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+      cidadeId= resCidade.body
+  })
+  
   it('Exclui registro existente', async () => {
-    let cidadeId :number|undefined = undefined
-    beforeAll(async()=>{
-        const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
-        cidadeId= resCidade.body
-    })
-    
+
     const resCria = await testServer.post('/pessoas').send({
         nomeCompleto: 'Fulano de Tal',
         email: 'fulano@example.com',
