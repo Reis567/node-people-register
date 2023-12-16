@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {StatusCodes} from "http-status-codes"
 import { CidadesController, PessoasController } from "../controllers";
+import { UsuariosController } from "../controllers/usuarios";
 
 const router = Router()
 
@@ -30,5 +31,14 @@ router.post("/pessoas",PessoasController.createValidation,PessoasController.crea
 router.put("/pessoas/:id",PessoasController.updateByIdValidation,PessoasController.updateById)
 //Delete routes
 router.delete("/pessoas/:id",PessoasController.deleteByIdValidation,PessoasController.deleteById)
+
+
+/// Rotas de autenticação
+
+//Register
+router.post('/cadastrar',UsuariosController.signupValidation,UsuariosController.signup)
+
+//Login 
+router.post('/entrar',UsuariosController.signinValidation,UsuariosController.signin)
 
 export {router};
