@@ -48,4 +48,14 @@ describe('Usuarios - Signin', () => {
         expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
         expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
     });
+
+    it('Tenta autenticar usuário com senha curta', async () => {
+        const resposta2 = await testServer.post('/entrar').send({
+            email: 'test@example.com',
+            senha: 's',
+        });
+
+        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+    });
 });
