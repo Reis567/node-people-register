@@ -2,7 +2,7 @@ import * as signIn from './signIn'
 import * as signUp from './signUp'
 
 
-export const PessoasController = {
+export const UsuariosController = {
     ...signIn,
     ...signUp
 }
