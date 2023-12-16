@@ -5,13 +5,14 @@ import { validation } from "../../shared/middlewares";
 import { IUsuario } from "../../database/models";
 import { UsuariosProvider } from "../../database/providers/usuarios";
 
+
+interface IBodyProps extends Omit<IUsuario, 'id'> { }
+
 const bodyValidation = yup.object({
     nome: yup.string().required().min(3),
     email: yup.string().required().email().min(6),
     senha: yup.string().required().min(6), 
 });
-
-interface IBodyProps extends Omit<IUsuario, 'id'> { }
 
 export const signupValidation = validation((getSchema) => ({
     body: getSchema<IBodyProps>(bodyValidation),
