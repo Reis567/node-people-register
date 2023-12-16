@@ -20,17 +20,9 @@ export const signinValidation = validation((getSchema) => ({
 
 export const signin: RequestHandler = async (req, res) => {
     const { email, senha } = req.body;
-    const user = await UsuariosProvider.getByEmail(email);
+    const result = await UsuariosProvider.getByEmail(email);
 
-    if (user instanceof Error) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            errors: {
-                default: user.message,
-            },
-        });
-    }
-
-    if (!user || user.senha !== senha) {
+    if (result instanceof Error) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: 'Credenciais inválidas',
@@ -38,7 +30,21 @@ export const signin: RequestHandler = async (req, res) => {
         });
     }
 
+    if (result.senha !== senha) {
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            errors: {
+                default: 'Credenciais inválidas',
+            },
+        });
+    }else{
+        return res.status(StatusCodes.OK).json({accessToken:'teste'})
+    }
+
+
+
+    
+
     return res.status(StatusCodes.OK).json({
-        user,
+        result,
     });
 };
