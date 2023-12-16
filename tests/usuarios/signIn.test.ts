@@ -21,10 +21,19 @@ describe('Usuarios - Signin', () => {
         expect(resposta1.body).toHaveProperty('accessToken');
     });
 
-    it('Tenta autenticar usuário com credenciais inválidas', async () => {
+    it('Tenta autenticar usuário com senha inválida', async () => {
         const resposta2 = await testServer.post('/entrar').send({
-            email: 'usuario_inexistente@example.com',
+            email: 'test@example.com',
             senha: 'senha_incorreta',
+        });
+
+        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+    });
+    it('Tenta autenticar usuário com email inválido', async () => {
+        const resposta2 = await testServer.post('/entrar').send({
+            email: 'testerrado@example.com',
+            senha: 'senha123',
         });
 
         expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
