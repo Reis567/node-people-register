@@ -7,7 +7,7 @@ import { UsuariosProvider } from "../../database/providers/usuarios";
 
 const bodyValidation = yup.object({
     nome: yup.string().required().min(3),
-    email: yup.string().required().email(),
+    email: yup.string().required().email().min(6),
     senha: yup.string().required().min(6), 
 });
 
