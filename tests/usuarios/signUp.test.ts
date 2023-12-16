@@ -3,7 +3,7 @@ import { testServer } from '../jest.setup';
 
 describe('Usuarios - Signup', () => {
     it('Cria registro de usuário', async () => {
-        const resposta1 = await testServer.post('/signup').send({
+        const resposta1 = await testServer.post('/cadastrar').send({
             nome: 'Fulano de Tal',
             email: 'fulano@example.com',
             senha: 'senha123',
@@ -14,7 +14,7 @@ describe('Usuarios - Signup', () => {
     });
 
     it('Tenta criar registro de usuário com nome curto', async () => {
-        const resposta2 = await testServer.post('/signup').send({
+        const resposta2 = await testServer.post('/cadastrar').send({
             nome: 'Jo',
             email: 'jo@example.com',
             senha: 'senha123',
@@ -25,7 +25,7 @@ describe('Usuarios - Signup', () => {
     });
 
     it('Tenta criar registro de usuário sem nome', async () => {
-        const resposta3 = await testServer.post('/signup').send({
+        const resposta3 = await testServer.post('/cadastrar').send({
             email: 'jo@example.com',
             senha: 'senha123',
         });
@@ -35,7 +35,7 @@ describe('Usuarios - Signup', () => {
     });
 
     it('Tenta criar registro de usuário com email inválido', async () => {
-        const resposta4 = await testServer.post('/signup').send({
+        const resposta4 = await testServer.post('/cadastrar').send({
             nome: 'Jose',
             email: 'email_invalido',
             senha: 'senha123',
@@ -46,7 +46,7 @@ describe('Usuarios - Signup', () => {
     });
 
     it('Tenta criar registro de usuário sem email', async () => {
-        const resposta5 = await testServer.post('/signup').send({
+        const resposta5 = await testServer.post('/cadastrar').send({
             nome: 'Jose',
             senha: 'senha123',
         });
@@ -56,7 +56,7 @@ describe('Usuarios - Signup', () => {
     });
 
     it('Tenta criar registro de usuário com senha curta', async () => {
-        const resposta6 = await testServer.post('/signup').send({
+        const resposta6 = await testServer.post('/cadastrar').send({
             nome: 'Jose',
             email: 'jose@example.com',
             senha: '123',
