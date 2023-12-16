@@ -97,4 +97,13 @@ describe('Usuarios - Signup', () => {
         expect(resposta6.statusCode).toEqual(StatusCodes.BAD_REQUEST);
         expect(resposta6.body).toHaveProperty('errors.body.senha');
     });
+    it('Tenta criar registro sem senha', async () => {
+        const resposta6 = await testServer.post('/cadastrar').send({
+            nome: 'Jose',
+            email: 'jose@example.com',
+        });
+
+        expect(resposta6.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta6.body).toHaveProperty('errors.body.senha');
+    });
 });
