@@ -23,6 +23,27 @@ describe('Usuarios - Signup', () => {
         expect(typeof resposta1.body).toEqual('number');
     });
 
+    it('Email duplicado', async () => {
+        const resposta1 = await testServer.post('/cadastrar').send({
+            nome: 'Fulano3',
+            email: 'fulano30@example.com',
+            senha: 'senha1234',
+        });
+
+        expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(typeof resposta1.body).toEqual('number');
+
+        const resposta2 = await testServer.post('/cadastrar').send({
+            nome: 'Fulano 4',
+            email: 'fulano30@example.com',
+            senha: 'senha1234',
+        });
+
+        expect(resposta2.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+        expect(resposta2.body).toHaveProperty('errors.default');
+    });
+
+
 
     it('Tenta criar registro de usuário com nome curto', async () => {
         const resposta2 = await testServer.post('/cadastrar').send({
