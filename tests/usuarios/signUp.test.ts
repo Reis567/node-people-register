@@ -12,6 +12,17 @@ describe('Usuarios - Signup', () => {
         expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof resposta1.body).toEqual('number');
     });
+    it('Cria registro de usuário 2', async () => {
+        const resposta1 = await testServer.post('/cadastrar').send({
+            nome: 'Fulano 2',
+            email: 'fulano2@example.com',
+            senha: 'senha1234',
+        });
+
+        expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
+        expect(typeof resposta1.body).toEqual('number');
+    });
+
 
     it('Tenta criar registro de usuário com nome curto', async () => {
         const resposta2 = await testServer.post('/cadastrar').send({
