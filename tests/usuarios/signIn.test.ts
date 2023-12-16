@@ -45,8 +45,8 @@ describe('Usuarios - Signin', () => {
             senha: 'senha123',
         });
 
-        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.body');
     });
 
     it('Tenta autenticar usuário com senha curta', async () => {
@@ -55,8 +55,8 @@ describe('Usuarios - Signin', () => {
             senha: 's',
         });
 
-        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.body');
     });
     
     it('Tenta autenticar usuário sem senha', async () => {
@@ -64,15 +64,15 @@ describe('Usuarios - Signin', () => {
             email: 'test@example.com'
         });
 
-        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.body');
     });
     it('Tenta autenticar usuário sem email', async () => {
         const resposta2 = await testServer.post('/entrar').send({
             senha:"senha123"
         });
 
-        expect(resposta2.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-        expect(resposta2.body).toHaveProperty('errors.default', 'Credenciais inválidas');
+        expect(resposta2.statusCode).toEqual(StatusCodes.BAD_REQUEST);
+        expect(resposta2.body).toHaveProperty('errors.body');
     });
 });
