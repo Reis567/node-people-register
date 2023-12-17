@@ -1,4 +1,4 @@
-import { genSalt, hash } from "bcryptjs"
+import { compare, genSalt, hash } from "bcryptjs"
 
 const SALT_RANDOMS = 8
 
@@ -8,9 +8,14 @@ const hashPassword = async (password:string)=>{
     return hashPass
 }
 
+const verifyPassword = async(password:string,hashedPassword:string)=>{
+    const result = await compare(password,hashedPassword)
+    return result
+}
+
 
 export const PasswordCrypto = {
     hashPassword,
-
+    verifyPassword,
 }
 
