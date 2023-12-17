@@ -40,8 +40,12 @@ export const signin: RequestHandler = async (req, res) => {
         });
     }else{
         const accessToken = JWTService.sign({uid : usuario.id})
-        if(accessToken){
-
+        if(accessToken==='JWT_SECRET_NOT_FOUND'){
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                errors: {
+                    default: 'Credenciais inválidas',
+                },
+            });
         }
 
 
