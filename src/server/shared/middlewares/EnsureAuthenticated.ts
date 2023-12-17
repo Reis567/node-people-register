@@ -28,6 +28,10 @@ export const ensureAuthenticated:RequestHandler = async (req,res,next)=> {
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors:{default:'Erro ao verificar o token'}
         })
+    }else if(jwtData === 'INVALID_TOKEN'){
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            errors:{default:'Não autenticado'}
+        })
     }
     
     return next();
