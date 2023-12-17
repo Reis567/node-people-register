@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { validation } from "../../shared/middlewares";
 import { IUsuario } from "../../database/models";
 import { UsuariosProvider } from "../../database/providers/usuarios";
-import { PasswordCrypto } from "../../shared/services";
+import { JWTService, PasswordCrypto } from "../../shared/services";
 
 
 
@@ -21,16 +21,16 @@ export const signinValidation = validation((getSchema) => ({
 
 export const signin: RequestHandler = async (req, res) => {
     const { email, senha } = req.body;
-    const result = await UsuariosProvider.getByEmail(email);
+    const usuario = await UsuariosProvider.getByEmail(email);
 
-    if (result instanceof Error) {
+    if (usuario instanceof Error) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: 'Credenciais inválidas',
             },
         });
     }
-    const passwordMatch = await PasswordCrypto.verifyPassword(senha, result.senha)
+    const passwordMatch = await PasswordCrypto.verifyPassword(senha, usuario.senha)
 
     if (!passwordMatch) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -39,6 +39,9 @@ export const signin: RequestHandler = async (req, res) => {
             },
         });
     }else{
+        const accessToken = JWTService.sign({uid : usuario.id})
+
+
         return res.status(StatusCodes.OK).json({accessToken:'teste'})
     }
 
@@ -47,6 +50,6 @@ export const signin: RequestHandler = async (req, res) => {
     
 
     return res.status(StatusCodes.OK).json({
-        result,
+        usuario,
     });
 };
