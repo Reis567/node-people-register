@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { StatusCodes } from "http-status-codes";
+import { JWTService } from "../services";
 
 
 
@@ -21,9 +22,11 @@ export const ensureAuthenticated:RequestHandler = async (req,res,next)=> {
         })
     }
 
-    if(token !== 'teste'){
-        return res.status(StatusCodes.UNAUTHORIZED).json({
-            errors:{default:'Não autenticado'}
+    const jwtData = JWTService.verify(token)
+
+    if(jwtData === 'JWT_SECRET_NOT_FOUND'){
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            errors:{default:'Erro ao verificar o token'}
         })
     }
     
