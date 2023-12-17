@@ -40,6 +40,9 @@ export const signin: RequestHandler = async (req, res) => {
         });
     }else{
         const accessToken = JWTService.sign({uid : usuario.id})
+        if(accessToken){
+
+        }
 
 
         return res.status(StatusCodes.OK).json({accessToken:'teste'})

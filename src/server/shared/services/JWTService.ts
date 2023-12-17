@@ -6,7 +6,7 @@ interface IJWTData {
 }
 
 
-const sign = (data:IJWTData)=>{
+const sign = (data:IJWTData):string |'JWT_SECRET_NOT_FOUND'=>{
     if(!process.env.JWT_SECRET){
         return 'JWT_SECRET_NOT_FOUND'
     }
