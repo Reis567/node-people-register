@@ -14,8 +14,17 @@ const sign = (data:IJWTData)=>{
     return jwt.sign(data,process.env.JWT_SECRET,{expiresIn:'24h'})
 }
 
-const verify = ()=>{
+const verify = (token:string) => {
+    if(!process.env.JWT_SECRET){
+        return 'JWT_SECRET_NOT_FOUND'
+    }
 
+    try {
+       const decoded = jwt.verify(token,process.env.JWT_SECRET)
+    } catch (error) {
+        console.log(error)
+        return 'INVALID_TOKEN'
+    }
 }
 
 
