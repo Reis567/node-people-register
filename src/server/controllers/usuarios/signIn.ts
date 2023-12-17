@@ -49,7 +49,7 @@ export const signin: RequestHandler = async (req, res) => {
         }
 
 
-        return res.status(StatusCodes.OK).json({accessToken:'teste'})
+        return res.status(StatusCodes.OK).json({accessToken})
     }
 
 
