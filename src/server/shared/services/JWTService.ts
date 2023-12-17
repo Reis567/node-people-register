@@ -11,7 +11,7 @@ const sign = (data:IJWTData)=>{
         return 'JWT_SECRET_NOT_FOUND'
     }
 
-    return jwt.sign(data,process.env.JWT_SECRET)
+    return jwt.sign(data,process.env.JWT_SECRET,{expiresIn:'24h'})
 }
 
 const verify = ()=>{
