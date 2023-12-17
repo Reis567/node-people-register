@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { validation } from "../../shared/middlewares";
 import { IUsuario } from "../../database/models";
 import { UsuariosProvider } from "../../database/providers/usuarios";
+import { PasswordCrypto } from "../../shared/services";
 
 
 
@@ -29,8 +30,9 @@ export const signin: RequestHandler = async (req, res) => {
             },
         });
     }
+    const passwordMatch = await PasswordCrypto.verifyPassword(senha, result.senha)
 
-    if (result.senha !== senha) {
+    if (!passwordMatch) {
         return res.status(StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: 'Credenciais inválidas',
