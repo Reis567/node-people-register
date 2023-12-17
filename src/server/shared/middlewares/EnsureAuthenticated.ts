@@ -20,6 +20,12 @@ export const ensureAuthenticated:RequestHandler = async (req,res,next)=> {
             errors:{default:'Não autenticado'}
         })
     }
+
+    if(token !== 'teste'){
+        return res.status(StatusCodes.UNAUTHORIZED).json({
+            errors:{default:'Não autenticado'}
+        })
+    }
     
     return next();
 }
