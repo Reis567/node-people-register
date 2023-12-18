@@ -1,11 +1,25 @@
 import { testServer } from './../jest.setup';
 import { StatusCodes } from 'http-status-codes';
+
+
 describe('Pessoas - UpdateById',()=>{
+  let accessToken = '';
+  beforeAll(async()=>{
+      const email = 'pessoas-update@gmail.com';
+      await testServer.post('/cadastrar').send({nome:'teste',email,senha:'12345678'})
+      const signInRes = await testServer.post('/entrar').send({email,senha:'12345678'});
+
+      accessToken = signInRes.body.accessToken
+  })
+
+
   let cidadeId :number|undefined = undefined
   beforeAll(async()=>{
       const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
       cidadeId= resCidade.body
   })
+
+
     it('Edita registro existente', async () => {
         const resCria = await testServer.post('/pessoas').send({
             nomeCompleto: 'Fulano de Tal',
