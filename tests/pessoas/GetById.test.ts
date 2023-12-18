@@ -37,6 +37,15 @@ describe('Pessoas - GetBy Id', ()=>{
 
         expect(resBusca.statusCode).toEqual(StatusCodes.OK);
     });
+    it('Tenta consultar sem usar token de autenticação', async () => {
+        const res1 = await testServer
+          .get('/pessoas/1')
+          .send();
+    
+        expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+        expect(res1.body).toHaveProperty('errors.default');
+      });
+
     it('Tenta Busca registro inexistente',async ()=>{
         const response = await testServer.get(`/pessoas/99999`)
         .set({Authorization:`Bearer ${accessToken}`})
