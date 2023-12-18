@@ -11,7 +11,9 @@ describe('Cidades - Create', ()=>{
         accessToken = signInRes.body.accessToken
     })
     it('Cria registro',async ()=>{
-        const resposta1 = await testServer.post('/cidades').send({
+        const resposta1 = await testServer.post('/cidades')
+            .set({Authorization:`Bearer ${accessToken}`})
+            .send({
         
             nome:'Maricá',
         
@@ -20,7 +22,9 @@ describe('Cidades - Create', ()=>{
         expect(typeof resposta1.body).toEqual('number');
     });
     it('Tenta Criar registro com nome curto',async ()=>{
-        const resposta1 = await testServer.post('/cidades').send({
+        const resposta1 = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
         
             nome:'Ma',
         
