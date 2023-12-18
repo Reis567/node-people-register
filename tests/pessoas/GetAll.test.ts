@@ -17,7 +17,9 @@ describe('Pessoas - GetAll', ()=>{
         cidadeId= resCidade.body
     })
     it('Busca todos os registros',async ()=>{
-        const resposta1 = await testServer.post('/pessoas').send({
+        const resposta1 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulanogetall@example.com',
             cidadeId, 
