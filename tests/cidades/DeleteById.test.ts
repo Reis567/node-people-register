@@ -10,8 +10,11 @@ describe('Cidades - DeleteById', () => {
 
       accessToken = signInRes.body.accessToken
   })
+
   it('Exclui registro existente', async () => {
-    const resCria = await testServer.post('/cidades').send({
+    const resCria = await testServer.post('/cidades')
+    .set({Authorization:`Bearer ${accessToken}`})
+    .send({
         nome: 'Maricá',
       });
       
@@ -25,7 +28,9 @@ describe('Cidades - DeleteById', () => {
 
   it('Tenta excluir registro inexistente', async () => {
 
-    const response = await testServer.delete(`/cidades/99999`).send();
+    const response = await testServer.delete(`/cidades/99999`)
+    .set({Authorization:`Bearer ${accessToken}`})
+    .send();
 
     expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(response.body).toHaveProperty('errors.default');
