@@ -2,6 +2,14 @@ import { StatusCodes } from 'http-status-codes';
 import { testServer } from "../jest.setup";
 
 describe('Cidades - Create', ()=>{
+    let accessToken = '';
+    beforeAll(async()=>{
+        const email = 'cidades-create@gmail.com';
+        await testServer.post('/cadastrar').send({nome:'teste',email,senha:'12345678'})
+        const signInRes = await testServer.post('/entrar').send({email,senha:'12345678'});
+
+        accessToken = signInRes.body.accessToken
+    })
     it('Cria registro',async ()=>{
         const resposta1 = await testServer.post('/cidades').send({
         
