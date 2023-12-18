@@ -12,7 +12,9 @@ describe('Cidades - GetBy Id', ()=>{
         accessToken = signInRes.body.accessToken
     })
     it('Busca registro existente',async ()=>{
-        const resCria = await testServer.post('/cidades').send({
+        const resCria = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nome: 'Maricá',
           });
           
