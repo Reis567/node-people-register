@@ -21,7 +21,9 @@ describe('Pessoas - UpdateById',()=>{
 
 
     it('Edita registro existente', async () => {
-        const resCria = await testServer.post('/pessoas').send({
+        const resCria = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
             cidadeId, 
@@ -41,7 +43,9 @@ describe('Pessoas - UpdateById',()=>{
     
     it('Tenta editar registro inexistente', async () => {
     
-        const response = await testServer.put(`/pessoas/99999`).send({
+        const response = await testServer.put(`/pessoas/99999`)
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulano@example.com',
             cidadeId, 
