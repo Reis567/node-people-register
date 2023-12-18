@@ -17,8 +17,6 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }));
 
 export const deleteById: RequestHandler = async (req: Request, res: Response) => {
-    console.log(req.params);
-
     if (!req.params.id) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {

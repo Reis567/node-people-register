@@ -13,7 +13,9 @@ describe('Pessoas - DeleteById', () => {
   })
   let cidadeId :number|undefined = undefined
   beforeAll(async()=>{
-      const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+      const resCidade = await testServer.post('/cidades')
+      .set({Authorization:`Bearer ${accessToken}`})
+      .send({nome:'Brumadinho'})
       cidadeId= resCidade.body
   })
 
@@ -29,7 +31,9 @@ describe('Pessoas - DeleteById', () => {
       
       expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
       
-      const resApaga = await testServer.delete(`/pessoas/${resCria.body}`).send();
+      const resApaga = await testServer.delete(`/pessoas/${resCria.body}`)
+      .set({Authorization:`Bearer ${accessToken}`})
+      .send();
       
       expect(resApaga.statusCode).toEqual(StatusCodes.NO_CONTENT);
       

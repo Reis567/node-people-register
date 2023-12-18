@@ -13,26 +13,29 @@ describe('Pessoas - GetBy Id', ()=>{
     })
     let cidadeId :number|undefined = undefined
     beforeAll(async()=>{
-        const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+        const resCidade = await testServer.post('/cidades')
+        .set({ Authorization: `Bearer ${accessToken}` })
+        .send({nome:'Brumadinho'})
         cidadeId= resCidade.body
     })
 
     it('Busca registro existente',async ()=>{
 
-
         const resCria = await testServer.post('/pessoas')
-        .set({Authorization:`Bearer ${accessToken}`})
+        .set({ Authorization: `Bearer ${accessToken}` })
         .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulanogetbyid@example.com',
-            cidadeId
-          });
-          
-          expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
-          
-          const resBusca = await testServer.delete(`/pessoas/${resCria.body}`).send();
-          
-          expect(resBusca.statusCode).toEqual(StatusCodes.NO_CONTENT);
+            cidadeId,
+        });
+
+    expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
+
+    const resBusca = await testServer.get(`/pessoas/${resCria.body}`)
+        .set({ Authorization: `Bearer ${accessToken}` })
+        .send();
+
+        expect(resBusca.statusCode).toEqual(StatusCodes.OK);
     });
     it('Tenta Busca registro inexistente',async ()=>{
         const response = await testServer.get(`/pessoas/99999`)

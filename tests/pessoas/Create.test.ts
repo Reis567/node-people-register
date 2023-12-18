@@ -13,7 +13,9 @@ describe('Pessoas - Create', () => {
     let cidadeId: number | undefined = undefined;
 
     beforeAll(async () => {
-        const resCidade = await testServer.post('/cidades').send({ nome: 'Brumadinho' });
+        const resCidade = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({ nome: 'Brumadinho' });
         cidadeId = resCidade.body;
     });
 

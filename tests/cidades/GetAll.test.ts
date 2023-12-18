@@ -20,7 +20,9 @@ describe('Cidades - GetAll', ()=>{
         
         })
         expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
-        const resBuscada = await testServer.get('/cidades').send();
+        const resBuscada = await testServer.get('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send()
 
         expect(Number(resBuscada.header['x-total-count'])).toBeGreaterThan(0);
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);

@@ -15,7 +15,9 @@ describe('Pessoas - UpdateById',()=>{
 
   let cidadeId :number|undefined = undefined
   beforeAll(async()=>{
-      const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+      const resCidade = await testServer.post('/cidades')
+      .set({Authorization:`Bearer ${accessToken}`})
+      .send({nome:'Brumadinho'})
       cidadeId= resCidade.body
   })
 
@@ -31,7 +33,10 @@ describe('Pessoas - UpdateById',()=>{
           
           expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
           
-          const resAtualiza = await testServer.put(`/pessoas/${resCria.body}`).send({
+          const resAtualiza = await testServer
+          .put(`/pessoas/${resCria.body}`)
+          .set({Authorization:`Bearer ${accessToken}`})
+          .send({
             nomeCompleto: 'Fulano de Tal2',
             email: 'fulano2@example.com',
             cidadeId: 2, 
@@ -43,7 +48,8 @@ describe('Pessoas - UpdateById',()=>{
     
     it('Tenta editar registro inexistente', async () => {
     
-        const response = await testServer.put(`/pessoas/99999`)
+        const response = await testServer
+        .put(`/pessoas/99999`)
         .set({Authorization:`Bearer ${accessToken}`})
         .send({
             nomeCompleto: 'Fulano de Tal',

@@ -18,7 +18,10 @@ describe('Cidades - UpdateById',()=>{
           
           expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
           
-          const resAtualiza = await testServer.put(`/cidades/${resCria.body}`).send({
+          const resAtualiza = await testServer
+          .put(`/cidades/${resCria.body}`)
+          .set({Authorization:`Bearer ${accessToken}`})
+          .send({
             nome:'Marica2'
           });
           

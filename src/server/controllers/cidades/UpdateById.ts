@@ -30,8 +30,6 @@ export const UpdateByIdValidation = validation((getSchema)=>({
 
 
 export const UpdateById= async (req:Request, res:Response) => {
-  console.log(req.body);
-  console.log(req.params);
   if (!req.params.id){
     return res.status(StatusCodes.BAD_REQUEST).json({
       errors:{

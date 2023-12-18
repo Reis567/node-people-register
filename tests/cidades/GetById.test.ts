@@ -20,12 +20,16 @@ describe('Cidades - GetBy Id', ()=>{
           
           expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
           
-          const resBusca = await testServer.delete(`/cidades/${resCria.body}`).send();
+          const resBusca = await testServer.get(`/cidades/${resCria.body}`)
+          .set({Authorization:`Bearer ${accessToken}`})
+          .send();
           
-          expect(resBusca.statusCode).toEqual(StatusCodes.NO_CONTENT);
+          expect(resBusca.statusCode).toEqual(StatusCodes.OK);
     });
     it('Tenta Busca registro inexistente',async ()=>{
-        const response = await testServer.get(`/cidades/99999`).send();
+        const response = await testServer.get(`/cidades/99999`)
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send();
 
         expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
         expect(response.body).toHaveProperty('errors.default');

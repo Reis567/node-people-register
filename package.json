@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "cross-env JWT_SECRET=test jest",
     "start": "ts-node-dev ./src/index.ts",
     "build": "npx tsc",
     "production": "node ./build/index.js",
@@ -34,6 +34,7 @@
     "@types/jest": "^29.5.11",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/supertest": "^2.0.16",
+    "cross-env": "^7.0.3",
     "sqlite3": "^5.1.6",
     "supertest": "^6.3.3",
     "ts-node-dev": "^2.0.0",

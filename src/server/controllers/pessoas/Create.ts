@@ -18,8 +18,6 @@ export const createValidation = validation((getSchema) => ({
 }));
 
 export const create: RequestHandler = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
-    console.log(req.body);
-
     const result = await PessoasProvider.create(req.body);
 
     if (result instanceof Error) {

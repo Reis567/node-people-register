@@ -20,7 +20,9 @@ describe('Cidades - DeleteById', () => {
       
       expect(resCria.statusCode).toEqual(StatusCodes.CREATED);
       
-      const resApaga = await testServer.delete(`/cidades/${resCria.body}`).send();
+      const resApaga = await testServer.delete(`/cidades/${resCria.body}`)
+      .set({Authorization:`Bearer ${accessToken}`})
+      .send();
       
       expect(resApaga.statusCode).toEqual(StatusCodes.NO_CONTENT);
       

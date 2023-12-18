@@ -13,7 +13,9 @@ describe('Pessoas - GetAll', ()=>{
     })
     let cidadeId :number|undefined = undefined
     beforeAll(async()=>{
-        const resCidade = await testServer.post('/cidades').send({nome:'Brumadinho'})
+        const resCidade = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({nome:'Brumadinho'})
         cidadeId= resCidade.body
     })
     it('Busca todos os registros',async ()=>{
@@ -26,7 +28,9 @@ describe('Pessoas - GetAll', ()=>{
         
         })
         expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
-        const resBuscada = await testServer.get('/pessoas').send();
+        const resBuscada = await testServer.get('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send();
 
         expect(Number(resBuscada.header['x-total-count'])).toBeGreaterThan(0);
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
