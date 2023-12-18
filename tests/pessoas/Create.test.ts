@@ -18,7 +18,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Cria registro', async () => {
-        const resposta1 = await testServer.post('/pessoas').send({
+        const resposta1 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulanoCreate1@example.com',
             cidadeId,
@@ -28,7 +30,9 @@ describe('Pessoas - Create', () => {
         expect(typeof resposta1.body).toEqual('number');
     });
     it('Cria registro 2', async () => {
-        const resposta1 = await testServer.post('/pessoas').send({
+        const resposta1 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano o segundo',
             email: 'fulanoCreate2@example.com',
             cidadeId,
@@ -38,7 +42,9 @@ describe('Pessoas - Create', () => {
         expect(typeof resposta1.body).toEqual('number');
     });
     it('Tenta criar registro com email duplicado', async () => {
-        const resposta1 = await testServer.post('/pessoas').send({
+        const resposta1 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulanoCreate1222@example.com',
             cidadeId,
@@ -55,7 +61,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Tenta criar registro com Cidade Id inválido', async () => {
-        const resposta2 = await testServer.post('/pessoas').send({
+        const resposta2 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Juca da Silva',
             email: 'juca222@gmail.com',
             cidadeId: 'teste',
@@ -65,7 +73,9 @@ describe('Pessoas - Create', () => {
         expect(resposta2.body).toHaveProperty('errors.body.cidadeId');
     });
     it('Tenta criar registro com nome curto', async () => {
-        const resposta2 = await testServer.post('/pessoas').send({
+        const resposta2 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Jo',
             email: 'joelintoncreate2@example.com',
             cidadeId,
@@ -76,7 +86,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Tenta criar registro sem nome', async () => {
-        const resposta5 = await testServer.post('/pessoas').send({
+        const resposta5 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             email: 'noName@example.com',
             cidadeId,
         });
@@ -86,7 +98,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Tenta criar registro sem email', async () => {
-        const resposta6 = await testServer.post('/pessoas').send({
+        const resposta6 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'SemEmail',
             cidadeId,
         });
@@ -96,7 +110,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Tenta criar registro com email no formato inválido', async () => {
-        const resposta7 = await testServer.post('/pessoas').send({
+        const resposta7 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'EmailInvalido',
             email: 'invalidEmail',
             cidadeId,
@@ -107,7 +123,9 @@ describe('Pessoas - Create', () => {
     });
     
     it('Tenta criar registro sem cidadeId', async () => {
-        const resposta6 = await testServer.post('/pessoas').send({
+        const resposta6 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'SemEmail',
             email:'emaicreate@gmail.com'
         });
@@ -117,7 +135,9 @@ describe('Pessoas - Create', () => {
     });
 
     it('Tenta criar registro sem nenhuma propriedade', async () => {
-        const resposta6 = await testServer.post('/pessoas').send({
+        const resposta6 = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
         });
 
         expect(resposta6.statusCode).toEqual(StatusCodes.BAD_REQUEST);
