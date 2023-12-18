@@ -20,7 +20,9 @@ describe('Pessoas - GetBy Id', ()=>{
     it('Busca registro existente',async ()=>{
 
 
-        const resCria = await testServer.post('/pessoas').send({
+        const resCria = await testServer.post('/pessoas')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nomeCompleto: 'Fulano de Tal',
             email: 'fulanogetbyid@example.com',
             cidadeId
@@ -33,7 +35,9 @@ describe('Pessoas - GetBy Id', ()=>{
           expect(resBusca.statusCode).toEqual(StatusCodes.NO_CONTENT);
     });
     it('Tenta Busca registro inexistente',async ()=>{
-        const response = await testServer.get(`/pessoas/99999`).send();
+        const response = await testServer.get(`/pessoas/99999`)
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send();
 
         expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
         expect(response.body).toHaveProperty('errors.default');
