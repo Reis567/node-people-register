@@ -24,7 +24,7 @@ describe('Pessoas - DeleteById', () => {
     const resCria = await testServer.post('/pessoas')
     .set({Authorization:`Bearer ${accessToken}`})
     .send({
-        nomeCompleto: 'Fulano de Tal',
+        nomeCompleto: 'Cezar maia',
         email: 'fulanodelete@example.com',
         cidadeId, 
       });
@@ -37,6 +37,15 @@ describe('Pessoas - DeleteById', () => {
       
       expect(resApaga.statusCode).toEqual(StatusCodes.NO_CONTENT);
       
+  });
+
+  it('Tenta apagar registro sem usar token de autenticação', async () => {
+    const res1 = await testServer
+      .delete('/pessoas/1')
+      .send();
+
+    expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+    expect(res1.body).toHaveProperty('errors.default');
   });
 
   it('Tenta excluir registro inexistente', async () => {

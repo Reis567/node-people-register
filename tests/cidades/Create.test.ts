@@ -14,11 +14,7 @@ describe('Cidades - Create', ()=>{
     it('Cria registro',async ()=>{
         const resposta1 = await testServer.post('/cidades')
             .set({ Authorization: `Bearer ${accessToken}` })
-            .send({
-        
-            nome:'Maricá',
-        
-        })
+            .send({ nome:'Maricá' })
         expect(resposta1.statusCode).toEqual(StatusCodes.CREATED);
         expect(typeof resposta1.body).toEqual('number');
     });
@@ -26,11 +22,7 @@ describe('Cidades - Create', ()=>{
 
     it('Tenta criar registro sem token',async ()=>{
         const resposta1 = await testServer.post('/cidades')
-            .send({
-        
-            nome:'Maricá',
-        
-        })
+            .send({nome:'Maricá'})
         expect(resposta1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
         expect(resposta1.body).toHaveProperty('errors.default');
     });
