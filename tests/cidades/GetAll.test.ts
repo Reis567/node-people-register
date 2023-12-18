@@ -12,7 +12,9 @@ describe('Cidades - GetAll', ()=>{
         accessToken = signInRes.body.accessToken
     })
     it('Busca todos os registros',async ()=>{
-        const resposta1 = await testServer.post('/cidades').send({
+        const resposta1 = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
         
             nome:'Maricá',
         
