@@ -28,4 +28,11 @@ describe('Cidades - GetAll', ()=>{
         expect(resBuscada.statusCode).toEqual(StatusCodes.OK);
         expect(resBuscada.body.length).toBeGreaterThan(0)
     });
+    it('Tenta consultar sem usar token de autenticação', async () => {
+        const res1 = await testServer
+          .get('/cidades')
+          .send();
+        expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+        expect(res1.body).toHaveProperty('errors.default');
+      });
 });
