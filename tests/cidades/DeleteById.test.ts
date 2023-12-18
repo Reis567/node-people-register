@@ -2,6 +2,14 @@ import { StatusCodes } from 'http-status-codes';
 import { testServer } from '../jest.setup';
 
 describe('Cidades - DeleteById', () => {
+  let accessToken = '';
+  beforeAll(async()=>{
+      const email = 'cidades-delete@gmail.com';
+      await testServer.post('/cadastrar').send({nome:'teste',email,senha:'12345678'})
+      const signInRes = await testServer.post('/entrar').send({email,senha:'12345678'});
+
+      accessToken = signInRes.body.accessToken
+  })
   it('Exclui registro existente', async () => {
     const resCria = await testServer.post('/cidades').send({
         nome: 'Maricá',
