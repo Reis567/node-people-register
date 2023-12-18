@@ -1,6 +1,14 @@
 import { testServer } from './../jest.setup';
 import { StatusCodes } from 'http-status-codes';
 describe('Cidades - UpdateById',()=>{
+  let accessToken = '';
+  beforeAll(async()=>{
+      const email = 'cidades-update@gmail.com';
+      await testServer.post('/cadastrar').send({nome:'teste',email,senha:'12345678'})
+      const signInRes = await testServer.post('/entrar').send({email,senha:'12345678'});
+
+      accessToken = signInRes.body.accessToken
+  })
     it('Edita registro existente', async () => {
         const resCria = await testServer.post('/cidades').send({
             nome: 'Maricá',
