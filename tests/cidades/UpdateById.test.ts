@@ -10,7 +10,9 @@ describe('Cidades - UpdateById',()=>{
       accessToken = signInRes.body.accessToken
   })
     it('Edita registro existente', async () => {
-        const resCria = await testServer.post('/cidades').send({
+        const resCria = await testServer.post('/cidades')
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nome: 'Maricá',
           });
           
@@ -26,7 +28,9 @@ describe('Cidades - UpdateById',()=>{
     
     it('Tenta editar registro inexistente', async () => {
     
-        const response = await testServer.put(`/cidades/99999`).send({
+        const response = await testServer.put(`/cidades/99999`)
+        .set({Authorization:`Bearer ${accessToken}`})
+        .send({
             nome:'Maricá'
         });
     
