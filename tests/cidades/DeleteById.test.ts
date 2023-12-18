@@ -28,6 +28,14 @@ describe('Cidades - DeleteById', () => {
       
   });
 
+  it('Tenta apagar registro sem usar token de autenticação', async () => {
+    const res1 = await testServer
+      .delete('/cidades/1')
+      .send();
+    expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+    expect(res1.body).toHaveProperty('errors.default');
+  });
+
   it('Tenta excluir registro inexistente', async () => {
 
     const response = await testServer.delete(`/cidades/99999`)
