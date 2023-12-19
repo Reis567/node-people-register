@@ -1,8 +1,8 @@
-# API Completa Node
+# UrbanPulse Node API
 
 ## Introdução
 
-Bem-vindo à documentação oficial da API Node.js. Esta API oferece recursos completos para gerenciar cidades, pessoas e autenticação de usuários. Siga as instruções abaixo para começar a usar a API em seus projetos.
+Bem-vindo à documentação oficial da API Urban Pulse. Esta API oferece recursos completos para gerenciar cidades, pessoas e autenticação de usuários. Siga as instruções abaixo para começar a usar a API em seus projetos.
 
 ## Índice
 
