@@ -46,7 +46,7 @@ describe('Pessoas - UpdateById',()=>{
           
       });
 
-      it('Tenta atualizar sem usar token de autenticação', async () => {
+    it('Tenta atualizar sem usar token de autenticação', async () => {
         const res1 = await testServer
           .put('/pessoas/1')
           .send({
